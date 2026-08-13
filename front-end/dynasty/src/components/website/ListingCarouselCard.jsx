@@ -192,12 +192,12 @@ export default function ListingCarouselCard({
               "
             >
 
-              <Bath
-                size={18}
-                className="text-[#C9A758]"
-              />
+             <Bath
+  size={18}
+  className="text-[#C9A758]"
+/>
 
-              Ensuite
+{listing.ensuite_status || "Not specified"}
 
             </div>
 
