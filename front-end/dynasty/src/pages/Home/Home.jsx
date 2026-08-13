@@ -281,7 +281,7 @@ useEffect(() => {
 
           }, {})
         )
-        .slice(0, 5)
+        .slice(0, 3)
         .map((group) => (
 
           <div
