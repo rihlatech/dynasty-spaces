@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo/dynasty-logo.png";
 import { supabase } from "../../config/SupabaseClient";
@@ -11,8 +11,6 @@ import {
   BarChart3,
   Settings,
   LogOut,
-  Menu,
-  X,
 } from "lucide-react";
 
 
@@ -25,7 +23,7 @@ export default function Sidebar() {
   // MOBILE SIDEBAR STATE
   // =========================================================
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
 
   // =========================================================
@@ -62,9 +60,6 @@ export default function Sidebar() {
 
     navigate(path);
 
-    // Close mobile drawer
-    setIsOpen(false);
-
   };
 
 
@@ -74,7 +69,7 @@ export default function Sidebar() {
           MOBILE MENU BUTTON
       ===================================================== */}
 
-      <button
+      {/* <button
         type="button"
         onClick={() => setIsOpen(true)}
         className="
@@ -110,14 +105,14 @@ export default function Sidebar() {
         aria-label="Open navigation menu"
       >
         <Menu size={22} />
-      </button>
+      </button> */}
 
 
       {/* =====================================================
           MOBILE BACKDROP
       ===================================================== */}
 
-      {isOpen && (
+      {/* {isOpen && (
 
         <div
           className="
@@ -133,7 +128,7 @@ export default function Sidebar() {
           onClick={() => setIsOpen(false)}
         />
 
-      )}
+      )} */}
 
 
       {/* =====================================================
@@ -141,39 +136,22 @@ export default function Sidebar() {
       ===================================================== */}
 
       <aside
-        className={`
-          fixed
-          top-0
-          left-0
-          z-[80]
+  className="
+    w-full
+    h-full
 
-          w-72
-          h-screen
+    bg-[#101F34]
+    text-white
 
-          bg-[#101F34]
-          text-white
+    flex
+    flex-col
 
-          flex
-          flex-col
+    border-r
+    border-white/10
 
-          border-r
-          border-white/10
-
-          shadow-2xl
-
-          transition-transform
-          duration-300
-          ease-in-out
-
-          lg:translate-x-0
-
-          ${
-            isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
-          }
-        `}
-      >
+    shadow-2xl
+  "
+>
 
         {/* ===================================================
             LOGO / BRAND
@@ -253,7 +231,7 @@ export default function Sidebar() {
 
             {/* MOBILE CLOSE BUTTON */}
 
-            <button
+            {/* <button
               type="button"
               onClick={() => setIsOpen(false)}
               className="
@@ -284,7 +262,7 @@ export default function Sidebar() {
 
               <X size={20} />
 
-            </button>
+            </button> */}
 
           </div>
 
