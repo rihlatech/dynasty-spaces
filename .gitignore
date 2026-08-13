@@ -7,8 +7,11 @@
 **/.env.*.local
 
 # Build output
+**/.env.* 
+!.env.example
 **/dist/
 **/build/
+
 
 # Logs
 npm-debug.log*
@@ -22,3 +25,4 @@ pnpm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
