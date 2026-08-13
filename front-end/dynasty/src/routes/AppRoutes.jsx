@@ -21,9 +21,8 @@ import Partnership from "../pages/Partnership/Partnership";
 // PUBLIC PROPERTY PAGES
 // =========================================================
 
-import Properties from "../pages/Properties/Properties";
-import ListingDetails from "../pages/Properties/ListingDetails";
-
+import Properties from "../pages/properties/Properties";
+import ListingDetails from "../pages/properties/ListingDetails";
 
 // =========================================================
 // PUBLIC DEVELOPMENT PAGES
