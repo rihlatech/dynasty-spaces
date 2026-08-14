@@ -5,8 +5,7 @@ export default function Footer() {
   const socialLinks = {
     instagram: "https://www.instagram.com/realtor_dynastyspaces/",
     tiktok: "https://www.tiktok.com/@realtor_dynastyspaces",
-    facebook: "#",
-    linkedin: "#",
+    youtube:"https://youtube.com/@dynastyspaces?si=MqIi6z2qP5c30PSs"
   };
 
   return (
@@ -246,7 +245,7 @@ export default function Footer() {
             </a>
 
             <a
-              href={socialLinks.facebook}
+              href={socialLinks.youtube}
               target="_blank"
               rel="noopener noreferrer"
               className="
@@ -256,21 +255,7 @@ export default function Footer() {
                 transition
               "
             >
-              Facebook
-            </a>
-
-            <a
-              href={socialLinks.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                w-fit
-                text-gray-400
-                hover:text-[#C9A758]
-                transition
-              "
-            >
-              LinkedIn
+              YouTube
             </a>
 
             <a
