@@ -77,15 +77,35 @@ export default function Login() {
 if (userError) throw userError;
 
       if (user) {
-        await supabase
-          .from("profiles")
-          .update({
-            last_login: new Date().toISOString(),
-          })
-          .eq("id", user.id);
-      }
+  // Get the user's role from profiles
+  const { data: profile, error: profileError } =
+    await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
 
-      navigate("/admin");
+  if (profileError) throw profileError;
+
+  // Update last login
+  await supabase
+    .from("profiles")
+    .update({
+      last_login: new Date().toISOString(),
+    })
+    .eq("id", user.id);
+
+  // Redirect based on role
+  if (profile.role === "admin") {
+    navigate("/admin");
+  } else if (profile.role === "editor") {
+    navigate("/admin/editors");
+  } else {
+    // Regular users don't get access to the admin dashboard
+    await supabase.auth.signOut();
+    navigate("/");
+  }
+}
 
     } catch (error) {
       console.error(error);

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 
   const socialLinks = {
-    instagram: "#",
-    tiktok: "#",
+    instagram: "https://www.instagram.com/realtor_dynastyspaces/",
+    tiktok: "https://www.tiktok.com/@realtor_dynastyspaces",
     facebook: "#",
     linkedin: "#",
   };

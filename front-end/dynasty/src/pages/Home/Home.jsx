@@ -339,12 +339,48 @@ useEffect(() => {
 
         ))}
 
+        {/* ================================================= */}
+{/* VIEW ALL PROPERTIES */}
+{/* ================================================= */}
+
+<div
+  className="
+    pt-8
+    flex
+    justify-center
+  "
+>
+  <button
+    onClick={() => navigate("/properties")}
+    className="
+      px-8
+      py-4
+
+      border
+      border-[#C9A758]
+
+      text-[#C9A758]
+
+      font-semibold
+
+      hover:bg-[#C9A758]
+      hover:text-black
+
+      transition-all
+      duration-300
+    "
+  >
+    View All Properties →
+  </button>
+</div>
+
+
 
         {/* ================================================= */}
         {/* VIEW MORE */}
         {/* ================================================= */}
 
-        {Object.keys(
+        {/* {Object.keys(
           listings.reduce((groups, listing) => {
 
             const id =
@@ -395,13 +431,14 @@ useEffect(() => {
 
           </div>
 
-        )}
+        )} */}
 
       </div>
 
     )}
 
   </div>
+  
 
 </section>
 

@@ -184,7 +184,7 @@ export default function AppRoutes() {
       <Route
         path="/admin"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <Dashboard />
           </ProtectedRoute>
         }
@@ -199,7 +199,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/developments"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <Developments />
           </ProtectedRoute>
         }
@@ -210,7 +210,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/developments/new"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <NewDevelopment />
           </ProtectedRoute>
         }
@@ -221,7 +221,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/developments/:developmentId/edit"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <EditDevelopment />
           </ProtectedRoute>
         }
@@ -232,7 +232,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/developments/:developmentId/listings"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}> 
             <DevelopmentListings />
           </ProtectedRoute>
         }
@@ -247,7 +247,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/listings"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <Listings />
           </ProtectedRoute>
         }
@@ -258,7 +258,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/listings/new"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <NewListing />
           </ProtectedRoute>
         }
@@ -269,7 +269,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/listings/:listingId/edit"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <EditListing />
           </ProtectedRoute>
         }
@@ -283,7 +283,7 @@ export default function AppRoutes() {
       <Route
         path="/admin/analytics"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
             <Analytics />
           </ProtectedRoute>
         }
@@ -296,7 +296,7 @@ export default function AppRoutes() {
 <Route
   path="/admin/editors"
   element={
-    <ProtectedRoute>
+    <ProtectedRoute allowedRoles={["admin"]}>
       <Editors />
     </ProtectedRoute>
   }
@@ -310,7 +310,7 @@ export default function AppRoutes() {
 <Route
   path="/admin/settings"
   element={
-    <ProtectedRoute>
+    <ProtectedRoute allowedRoles={["admin"]}>
       <Settings />
     </ProtectedRoute>
   }
