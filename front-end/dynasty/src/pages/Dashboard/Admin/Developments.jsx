@@ -39,8 +39,7 @@ export default function Developments() {
       if (error) throw error;
 
       setDevelopments(data || []);
-      console.log("Developments:", data)
-      // setFilteredDevelopments(data || []);
+     
 
     } catch (error) {
       console.error(error);
@@ -71,8 +70,6 @@ export default function Developments() {
     );
   }
 
-  console.log("Current filter:", statusFilter);
-  console.log("Results:", results);
 
   setFilteredDevelopments(results);
 
