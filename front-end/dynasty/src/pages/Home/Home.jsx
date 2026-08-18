@@ -227,17 +227,128 @@ useEffect(() => {
 
     {loading ? (
 
-      <div
-        className="
-          py-20
-          text-center
-          text-gray-400
-        "
-      >
-        Loading properties...
+  <div className="space-y-16">
+
+    {[1, 2, 3].map((group) => (
+
+      <div key={group}>
+
+        {/* DEVELOPMENT HEADER SKELETON */}
+
+        <div className="mb-8">
+
+          <div
+            className="
+              h-3
+              w-28
+              bg-white/10
+              animate-pulse
+            "
+          />
+
+          <div
+            className="
+              mt-3
+              h-9
+              w-56
+              bg-white/10
+              animate-pulse
+            "
+          />
+
+        </div>
+
+
+        {/* PROPERTY CARDS SKELETON */}
+
+        <div
+          className="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            lg:grid-cols-3
+            gap-6
+          "
+        >
+
+          {[1, 2, 3].map((card) => (
+
+            <div
+              key={card}
+              className="
+                overflow-hidden
+                border
+                border-white/5
+                bg-[#0A0A0A]
+              "
+            >
+
+              {/* IMAGE */}
+
+              <div
+                className="
+                  h-64
+                  bg-white/10
+                  animate-pulse
+                "
+              />
+
+
+              {/* CONTENT */}
+
+              <div className="p-6 space-y-4">
+
+                <div
+                  className="
+                    h-3
+                    w-24
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+                <div
+                  className="
+                    h-6
+                    w-3/4
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+                <div
+                  className="
+                    h-4
+                    w-1/2
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+                <div
+                  className="
+                    h-5
+                    w-32
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
       </div>
 
-    ) : listings.length === 0 ? (
+    ))}
+
+  </div>
+
+) : listings.length === 0 ? (
 
       <div
         className="

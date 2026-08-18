@@ -546,17 +546,139 @@ export default function Properties() {
 
           {loading && (
 
+  <div className="space-y-20">
+
+    {[1, 2].map((section) => (
+
+      <section key={section}>
+
+        {/* DEVELOPMENT HEADER SKELETON */}
+
+        <div className="mb-8">
+
+          <div
+            className="
+              h-3
+              w-28
+              bg-white/10
+              animate-pulse
+              mb-3
+            "
+          />
+
+          <div
+            className="
+              h-9
+              w-56
+              bg-white/10
+              animate-pulse
+            "
+          />
+
+        </div>
+
+
+        {/* PROPERTY CARDS SKELETON */}
+
+        <div
+          className="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            gap-6
+          "
+        >
+
+          {[1, 2, 3].map((card) => (
+
             <div
+              key={card}
               className="
-                py-24
-                text-center
-                text-gray-400
+                overflow-hidden
+                bg-[#0A0A0A]
+                border
+                border-white/5
               "
             >
-              Loading properties...
+
+              {/* IMAGE */}
+
+              <div
+                className="
+                  h-64
+                  bg-white/10
+                  animate-pulse
+                "
+              />
+
+
+              {/* CONTENT */}
+
+              <div className="p-6 space-y-4">
+
+                {/* PROPERTY TYPE */}
+
+                <div
+                  className="
+                    h-3
+                    w-24
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+
+                {/* TITLE */}
+
+                <div
+                  className="
+                    h-6
+                    w-3/4
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+
+                {/* LOCATION */}
+
+                <div
+                  className="
+                    h-4
+                    w-1/2
+                    bg-white/10
+                    animate-pulse
+                  "
+                />
+
+
+                {/* PRICE */}
+
+                <div
+                  className="
+                    h-5
+                    w-32
+                    bg-[#C9A758]/20
+                    animate-pulse
+                  "
+                />
+
+              </div>
+
             </div>
 
-          )}
+          ))}
+
+        </div>
+
+      </section>
+
+    ))}
+
+  </div>
+
+)}
 
 
           {/* EMPTY */}
@@ -567,16 +689,76 @@ export default function Properties() {
               <div className="py-24 text-center">
 
   <h2 className="text-2xl font-semibold text-white">
-    No properties found
-  </h2>
+  No Properties Available
+</h2>
 
-  <p className="mt-3 text-gray-500">
-    Try adjusting your filters or clearing your search.
-  </p>
+<p className="mt-3 text-gray-500">
+  There are currently no published properties available.
+  Please check back later.
+</p>
 
 </div>
 
             )}
+
+          {/* NO MATCHING PROPERTIES */}
+
+{!loading &&
+  listings.length > 0 &&
+  filteredListings.length === 0 && (
+
+    <div
+      className="
+        py-24
+        text-center
+      "
+    >
+
+      <h2
+        className="
+          text-2xl
+          md:text-3xl
+          font-semibold
+          text-white
+        "
+      >
+        No Matching Properties
+      </h2>
+
+      <p
+        className="
+          mt-3
+          max-w-md
+          mx-auto
+          text-gray-500
+          leading-7
+        "
+      >
+        We couldn't find any properties matching
+        your current filters. Try adjusting your
+        search criteria.
+      </p>
+
+      <button
+        type="button"
+        onClick={clearFilters}
+        className="
+          mt-7
+          px-6
+          py-3
+          bg-[#C9A758]
+          text-black
+          font-medium
+          hover:bg-[#E6C56A]
+          transition
+        "
+      >
+        Clear Filters
+      </button>
+
+    </div>
+
+)}
 
 
           {/* GROUPS */}

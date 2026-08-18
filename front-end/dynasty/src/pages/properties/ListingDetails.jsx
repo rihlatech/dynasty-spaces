@@ -248,33 +248,496 @@ export default function ListingDetails() {
   };
 
   // =========================================================
-  // LOADING
-  // =========================================================
+// LOADING SKELETON
+// =========================================================
 
-  if (loading) {
+if (loading) {
 
-    return (
+  return (
+
+    <main
+      className="
+        min-h-screen
+        bg-[#050505]
+        text-white
+
+        pt-24
+        sm:pt-28
+        pb-16
+        sm:pb-20
+      "
+    >
 
       <div
         className="
-          min-h-screen
-          bg-[#050505]
-
-          flex
-          items-center
-          justify-center
-
-          text-gray-400
+          max-w-7xl
+          mx-auto
+          px-4
+          sm:px-6
+          lg:px-8
         "
       >
 
-        Loading property...
+        {/* BACK BUTTON SKELETON */}
+
+        <div
+          className="
+            mb-6
+            sm:mb-8
+
+            h-5
+            w-36
+
+            rounded
+            bg-white/10
+
+            animate-pulse
+          "
+        />
+
+
+        {/* =====================================================
+            MAIN CONTENT SKELETON
+        ===================================================== */}
+
+        <div
+          className="
+            grid
+            grid-cols-1
+            lg:grid-cols-2
+
+            gap-8
+            lg:gap-10
+          "
+        >
+
+          {/* ===================================================
+              GALLERY SKELETON
+          =================================================== */}
+
+          <section>
+
+            {/* MAIN IMAGE */}
+
+            <div
+              className="
+                w-full
+
+                h-[280px]
+                sm:h-[380px]
+                lg:h-[55vh]
+                lg:max-h-[580px]
+
+                rounded-xl
+                sm:rounded-2xl
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+
+            {/* THUMBNAILS */}
+
+            <div
+              className="
+                mt-4
+
+                flex
+                gap-3
+
+                overflow-hidden
+              "
+            >
+
+              {[1, 2, 3, 4, 5].map(
+                (item) => (
+
+                  <div
+                    key={item}
+                    className="
+                      w-16
+                      h-16
+                      sm:w-20
+                      sm:h-20
+
+                      shrink-0
+
+                      rounded-lg
+
+                      bg-white/10
+
+                      animate-pulse
+                    "
+                  />
+
+                )
+              )}
+
+            </div>
+
+
+            {/* VIRTUAL TOUR BUTTON */}
+
+            <div
+              className="
+                mt-6
+
+                w-full
+                h-14
+
+                rounded-xl
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+          </section>
+
+
+          {/* ===================================================
+              PROPERTY DETAILS SKELETON
+          =================================================== */}
+
+          <section>
+
+            {/* PROPERTY TYPE */}
+
+            <div
+              className="
+                h-4
+                w-40
+
+                rounded
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+
+            {/* TITLE */}
+
+            <div
+              className="
+                mt-5
+
+                h-10
+                sm:h-12
+
+                w-full
+                max-w-xl
+
+                rounded
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+
+            {/* LOCATION */}
+
+            <div
+              className="
+                mt-5
+
+                h-5
+                w-64
+
+                rounded
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+
+            {/* PRICE */}
+
+            <div className="mt-8">
+
+              <div
+                className="
+                  h-4
+                  w-24
+
+                  rounded
+
+                  bg-white/10
+
+                  animate-pulse
+                "
+              />
+
+              <div
+                className="
+                  mt-3
+
+                  h-9
+
+                  w-48
+
+                  rounded
+
+                  bg-white/10
+
+                  animate-pulse
+                "
+              />
+
+            </div>
+
+
+            {/* QUICK DETAILS */}
+
+            <div
+              className="
+                mt-8
+
+                grid
+                grid-cols-2
+
+                gap-4
+              "
+            >
+
+              {[1, 2, 3, 4].map(
+                (item) => (
+
+                  <div
+                    key={item}
+                    className="
+                      h-24
+
+                      rounded-xl
+
+                      border
+                      border-white/10
+
+                      bg-white/[0.04]
+
+                      p-4
+
+                      animate-pulse
+                    "
+                  >
+
+                    <div
+                      className="
+                        h-3
+                        w-20
+
+                        rounded
+
+                        bg-white/10
+                      "
+                    />
+
+                    <div
+                      className="
+                        mt-4
+
+                        h-5
+                        w-16
+
+                        rounded
+
+                        bg-white/10
+                      "
+                    />
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+
+            {/* WHATSAPP BUTTON */}
+
+            <div
+              className="
+                mt-6
+                sm:mt-8
+
+                w-full
+                h-14
+
+                rounded-xl
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+          </section>
+
+        </div>
+
+
+        {/* =====================================================
+            RELATED PROPERTIES SKELETON
+        ===================================================== */}
+
+        <section
+          className="
+            mt-14
+            sm:mt-20
+          "
+        >
+
+          {/* HEADER */}
+
+          <div
+            className="
+              mb-8
+            "
+          >
+
+            <div
+              className="
+                h-4
+                w-28
+
+                rounded
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+            <div
+              className="
+                mt-3
+
+                h-9
+
+                w-64
+
+                rounded
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+          </div>
+
+
+          {/* CARDS */}
+
+          <div
+            className="
+              grid
+
+              grid-cols-1
+              sm:grid-cols-2
+              lg:grid-cols-3
+
+              gap-6
+            "
+          >
+
+            {[1, 2, 3].map(
+              (item) => (
+
+                <div
+                  key={item}
+                  className="
+                    overflow-hidden
+
+                    rounded-xl
+
+                    border
+                    border-white/10
+
+                    bg-white/[0.03]
+
+                    animate-pulse
+                  "
+                >
+
+                  {/* IMAGE */}
+
+                  <div
+                    className="
+                      h-56
+
+                      bg-white/10
+                    "
+                  />
+
+
+                  {/* CONTENT */}
+
+                  <div className="p-5">
+
+                    <div
+                      className="
+                        h-5
+                        w-3/4
+
+                        rounded
+
+                        bg-white/10
+                      "
+                    />
+
+                    <div
+                      className="
+                        mt-4
+
+                        h-4
+                        w-1/2
+
+                        rounded
+
+                        bg-white/10
+                      "
+                    />
+
+                    <div
+                      className="
+                        mt-5
+
+                        h-6
+                        w-32
+
+                        rounded
+
+                        bg-white/10
+                      "
+                    />
+
+                  </div>
+
+                </div>
+
+              )
+            )}
+
+          </div>
+
+        </section>
 
       </div>
 
-    );
+    </main>
 
-  }
+  );
+
+}
 
 
   // =========================================================
