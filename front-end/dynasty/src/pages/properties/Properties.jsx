@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 import { supabase } from "../../config/SupabaseClient";
 
@@ -308,6 +309,48 @@ export default function Properties() {
 
 
   return (
+    <>
+
+    <Helmet>
+  <title>
+    Properties for Sale in Kenya | Dynasty Spaces
+  </title>
+
+  <meta
+    name="description"
+    content="Explore properties available through Dynasty Spaces, including quality homes and real estate investment opportunities in Kenya."
+  />
+
+  <link
+    rel="canonical"
+    href="https://dynastyspace.com/properties"
+  />
+
+  <meta
+    property="og:title"
+    content="Properties for Sale in Kenya | Dynasty Spaces"
+  />
+
+  <meta
+    property="og:description"
+    content="Explore properties available through Dynasty Spaces, including quality homes and real estate investment opportunities in Kenya."
+  />
+
+  <meta
+    property="og:url"
+    content="https://dynastyspace.com/properties"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:image"
+    content="https://dynastyspace.com/dynasty_meta_logo.jpeg"
+  />
+</Helmet>
 
     <main
       className="
@@ -859,7 +902,7 @@ export default function Properties() {
       </section>
 
     </main>
-
+  </>
   );
 
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 import { supabase } from "../../config/SupabaseClient";
 
@@ -114,6 +115,46 @@ useEffect(() => {
   return (
 
     <>
+    <Helmet>
+  <title>
+    Dynasty Spaces | Real Estate & Property Developments in Kenya
+  </title>
+
+  <meta
+    name="description"
+    content="Discover quality property developments, homes, and real estate investment opportunities in Kenya with Dynasty Spaces."
+  />
+
+  <link
+    rel="canonical"
+    href="https://dynastyspace.com/"
+  />
+
+  <meta
+    property="og:title"
+    content="Dynasty Spaces | Real Estate & Property Developments in Kenya"
+  />
+
+  <meta
+    property="og:description"
+    content="Discover quality property developments, homes, and real estate investment opportunities in Kenya with Dynasty Spaces."
+  />
+
+  <meta
+    property="og:url"
+    content="https://dynastyspace.com/"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:image"
+    content="https://dynastyspace.com/dynasty_meta_logo.jpeg"
+  />
+</Helmet>
 
       <Hero />
 

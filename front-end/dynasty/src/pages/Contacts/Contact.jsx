@@ -188,6 +188,48 @@ export default function Contact() {
   // =========================================================
 
   return (
+    <>
+    <Helmet>
+  <title>
+    Contact Dynasty Spaces | Real Estate in Kenya
+  </title>
+
+  <meta
+    name="description"
+    content="Contact Dynasty Spaces for property enquiries, real estate opportunities, and information about our developments in Kenya."
+  />
+
+  <link
+    rel="canonical"
+    href="https://dynastyspace.com/contact"
+  />
+
+  <meta
+    property="og:title"
+    content="Contact Dynasty Spaces | Real Estate in Kenya"
+  />
+
+  <meta
+    property="og:description"
+    content="Contact Dynasty Spaces for property enquiries, real estate opportunities, and information about our developments in Kenya."
+  />
+
+  <meta
+    property="og:url"
+    content="https://dynastyspace.com/contact"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:image"
+    content="https://dynastyspace.com/dynasty_meta_logo.jpeg"
+  />
+</Helmet>
+
     <main
       className="
         min-h-screen
@@ -712,6 +754,7 @@ export default function Contact() {
 
 
     </main>
+    </>
   );
 
 }

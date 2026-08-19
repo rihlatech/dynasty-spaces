@@ -2,10 +2,53 @@ import { motion } from "framer-motion";
 import { ArrowRight, Building2, Handshake, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import AboutImage from "../../assets/images/About.png";
+import { Helmet } from "react-helmet-async";
 
 export default function About() {
 
   return (
+    <>
+    <Helmet>
+  <title>
+    About Dynasty Spaces | Real Estate in Kenya
+  </title>
+
+  <meta
+    name="description"
+    content="Learn about Dynasty Spaces, a real estate company focused on quality property developments and real estate opportunities in Kenya."
+  />
+
+  <link
+    rel="canonical"
+    href="https://dynastyspace.com/about"
+  />
+
+  <meta
+    property="og:title"
+    content="About Dynasty Spaces | Real Estate in Kenya"
+  />
+
+  <meta
+    property="og:description"
+    content="Learn about Dynasty Spaces, a real estate company focused on quality property developments and real estate opportunities in Kenya."
+  />
+
+  <meta
+    property="og:url"
+    content="https://dynastyspace.com/about"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:image"
+    content="https://dynastyspace.com/dynasty_meta_logo.jpeg"
+  />
+</Helmet>
+
     <main
       className="
         min-h-screen
@@ -472,5 +515,6 @@ export default function About() {
       </section>
 
     </main>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState , useRef} from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import {
   ArrowLeft,
@@ -254,6 +255,99 @@ export default function ListingDetails() {
 if (loading) {
 
   return (
+    <>
+   <Helmet>
+  <title>
+    {listing?.title
+      ? `${listing.title} | Dynasty Spaces`
+      : "Property Details | Dynasty Spaces"}
+  </title>
+
+  <meta
+    name="description"
+    content={
+      listing?.description
+        ? listing.description.slice(0, 160)
+        : "Explore this property with Dynasty Spaces."
+    }
+  />
+
+  <link
+    rel="canonical"
+    href={`https://dynastyspace.com/properties/${listingId}`}
+  />
+
+  <meta
+    property="og:title"
+    content={
+      listing?.title
+        ? `${listing.title} | Dynasty Spaces`
+        : "Property Details | Dynasty Spaces"
+    }
+  />
+
+  <meta
+    property="og:description"
+    content={
+      listing?.description
+        ? listing.description.slice(0, 160)
+        : "Explore this property with Dynasty Spaces."
+    }
+  />
+
+  <meta
+    property="og:url"
+    content={`https://dynastyspace.com/properties/${listingId}`}
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  {images.length > 0 && (
+    <meta
+      property="og:image"
+      content={images[0]}
+    />
+  )}
+
+  {listing && (
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "RealEstateListing",
+        name: listing.title,
+        description:
+          listing.description ||
+          `Explore ${listing.title}, a property available through Dynasty Spaces.`,
+        url: `https://dynastyspace.com/properties/${listingId}`,
+
+        image: images.length > 0 ? images : undefined,
+
+        offers: listing.price
+          ? {
+              "@type": "Offer",
+              price: listing.price,
+              priceCurrency: listing.currency || "KES",
+              url: `https://dynastyspace.com/properties/${listingId}`,
+            }
+          : undefined,
+
+        address: listing.location
+          ? {
+              "@type": "PostalAddress",
+              addressLocality: listing.location,
+              addressCountry: "KE",
+            }
+          : undefined,
+
+        numberOfBedrooms: listing.bedrooms || undefined,
+      })}
+    </script>
+  )}
+</Helmet>
+
 
     <main
       className="
@@ -734,6 +828,7 @@ if (loading) {
       </div>
 
     </main>
+    </>
 
   );
 

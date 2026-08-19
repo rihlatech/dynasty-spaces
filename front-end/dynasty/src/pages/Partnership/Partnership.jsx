@@ -1,5 +1,6 @@
 import { ArrowRight, Building2, Handshake, TrendingUp, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import partnershipImage from "../../assets/images/Partnership.jpg";
 
@@ -7,6 +8,47 @@ export default function Partnership() {
   const navigate = useNavigate();
 
   return (
+    <>
+    <Helmet>
+  <title>
+    Partnerships | Dynasty Spaces
+  </title>
+
+  <meta
+    name="description"
+    content="Partner with Dynasty Spaces to explore real estate opportunities, property developments, and strategic partnerships in Kenya."
+  />
+
+  <link
+    rel="canonical"
+    href="https://dynastyspace.com/partnership"
+  />
+
+  <meta
+    property="og:title"
+    content="Partnerships | Dynasty Spaces"
+  />
+
+  <meta
+    property="og:description"
+    content="Partner with Dynasty Spaces to explore real estate opportunities, property developments, and strategic partnerships in Kenya."
+  />
+
+  <meta
+    property="og:url"
+    content="https://dynastyspace.com/partnership"
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:image"
+    content="https://dynastyspace.com/dynasty_meta_logo.jpeg"
+  />
+ </Helmet>
     <main className="min-h-screen bg-[#050505] text-white">
 
       {/* =====================================================
@@ -498,13 +540,14 @@ export default function Partnership() {
       </section>
 
     </main>
+    </>
   );
-}
+ }
 
 
-/* =========================================================
+ /* =========================================================
    PARTNERSHIP CARD
-========================================================= */
+ ========================================================= */
 
 function PartnershipCard({
   icon,
