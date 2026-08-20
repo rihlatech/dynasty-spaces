@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import logo from "../../assets/logo/dynasty-logo-2.png";
+import logo from "../../assets/logo/dynasty-spaces-2.png";
 import heroVideo from "../../assets/videos/hero-video.mp4";
 
 export default function Hero() {
