@@ -45,7 +45,7 @@ export default function About() {
 
   <meta
     property="og:image"
-    content="https://dynastyspace.com/dynasty_meta_logo.jpeg"
+    content="https://dynastyspace.com/dynasty_favicon.png"
   />
 </Helmet>
 

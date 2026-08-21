@@ -335,7 +335,7 @@ export default function Footer() {
         {/* RihlaTech Watermark */}
 
         <a
-          href="https://rihlatechdigitalagency.vercel.ap"
+          href="https://rihlatechcompany.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="
