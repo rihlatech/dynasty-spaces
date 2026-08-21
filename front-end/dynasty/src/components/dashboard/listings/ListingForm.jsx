@@ -374,30 +374,31 @@ export default function ListingForm({
 
     if (name === "title") {
 
-      const generatedSlug = value
+  const baseSlug = value
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
 
-        .toLowerCase()
+  const uniqueNumber =
+    Math.floor(
+      100000 +
+      Math.random() * 900000
+    );
 
-        .trim()
+  const generatedSlug =
+    baseSlug
+      ? `${baseSlug}-${uniqueNumber}`
+      : "";
 
-        .replace(/[^\w\s-]/g, "")
+  setFormData((prev) => ({
+    ...prev,
+    title: value,
+    slug: generatedSlug,
+  }));
 
-        .replace(/\s+/g, "-")
-
-        .replace(/-+/g, "-");
-
-
-      setFormData((prev) => ({
-
-        ...prev,
-
-        title: value,
-
-        slug: generatedSlug,
-
-      }));
-
-    }
+}
 
 
     // -------------------------------------------------------
@@ -2233,40 +2234,51 @@ return (
 
       <div className="mt-6">
 
-        <label
-          className="
-            font-semibold
-            dark:text-white
-            block
-            mb-2
-          "
-        >
-          Slug
-        </label>
+  <label
+    className="
+      font-semibold
+      dark:text-white
+      block
+      mb-2
+    "
+  >
+    Slug
+  </label>
 
+  <input
+    type="text"
+    name="slug"
+    value={formData.slug}
+    readOnly
+    placeholder="luxury-3-bedroom-apartment-123456"
+    className="
+      w-full
+      rounded-xl
 
-        <input
-          type="text"
-          name="slug"
-          value={formData.slug}
-          onChange={handleChange}
-          placeholder="luxury-3-bedroom-apartment"
-          className="
-            w-full
-            rounded-xl
-            border
-            border-gray-300
-            dark:border-white/10
-            dark:bg-[#1A1A1A]
-            dark:text-white
-            px-4
-            py-3
-            outline-none
-            focus:border-[#C9A758]
-          "
-        />
+      border
+      border-gray-300
+      dark:border-white/10
 
-      </div>
+      bg-gray-100
+      dark:bg-[#151515]
+
+      text-gray-500
+      dark:text-gray-400
+
+      px-4
+      py-3
+
+      cursor-not-allowed
+
+      outline-none
+    "
+  />
+
+  <p className="mt-2 text-xs text-gray-500">
+    Automatically generated from the property title.
+  </p>
+
+</div>
 
 
       {/* LISTING TYPE + PROPERTY TYPE */}
