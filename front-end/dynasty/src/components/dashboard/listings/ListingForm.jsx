@@ -2845,16 +2845,7 @@ return (
           placeholder={`Describe the property, its key features and amenities.
 
 Example:
-Modern 3-bedroom apartment with spacious living areas and natural lighting.
-
-Amenities:
-• Swimming pool
-• Fully equipped gym
-• Secure parking
-• 24/7 security
-• Borehole water
-• Backup generator
-• High-speed internet`}
+Modern 3-bedroom apartment with spacious living areas`}
           className="
             w-full
             rounded-xl
