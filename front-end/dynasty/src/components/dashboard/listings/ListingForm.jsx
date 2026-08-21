@@ -2842,10 +2842,7 @@ return (
           value={formData.description}
           onChange={handleChange}
           rows={8}
-          placeholder={`Describe the property, its key features and amenities.
-
-Example:
-Modern 3-bedroom apartment with spacious living areas`}
+          placeholder={`Give a brief description of this property`}
           className="
             w-full
             rounded-xl
