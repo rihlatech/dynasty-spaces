@@ -46,7 +46,7 @@ export default function Partnership() {
 
   <meta
     property="og:image"
-    content="https://dynastyspace.com/dynasty_favicon.png"
+    content="https://dynastyspace.com/dynasty-favicon.png"
   />
  </Helmet>
     <main className="min-h-screen bg-[#050505] text-white">

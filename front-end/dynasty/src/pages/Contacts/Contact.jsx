@@ -227,7 +227,7 @@ export default function Contact() {
 
   <meta
     property="og:image"
-    content="https://dynastyspace.com/dynasty_favicon.png"
+    content="https://dynastyspace.com/dynasty-favicon.png"
   />
 </Helmet>
 

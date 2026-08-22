@@ -10,7 +10,7 @@ import {
   PlayCircle,
   X,
   Play,
-  Maximize,
+  // Maximize,
 } from "lucide-react";
 
 import { supabase } from "../../config/SupabaseClient";
@@ -28,7 +28,7 @@ export default function ListingDetails() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const [relatedListings, setRelatedListings] = useState([]);
-  const relatedCarouselRef = useRef(null);
+  // const relatedCarouselRef = useRef(null);
 
   const [loading, setLoading] = useState(true);
   const [relatedLoading, setRelatedLoading] = useState(true);
