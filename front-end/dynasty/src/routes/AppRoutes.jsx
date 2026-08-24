@@ -24,13 +24,6 @@ import Partnership from "../pages/Partnership/Partnership";
 import Properties from "../pages/properties/Properties";
 import ListingDetails from "../pages/properties/ListingDetails";
 
-// =========================================================
-// PUBLIC DEVELOPMENT PAGES
-// =========================================================
-
-import PublicDevelopments from "../pages/Developments/PublicDevelopments";
-import DevelopmentListingsPublic from "../pages/Developments/DevelopmentListingsPublic";
-import DevelopmentDetails from "../pages/Developments/DevelopmentDetails";
 
 
 // =========================================================
@@ -50,11 +43,6 @@ import ResetPassword from "../pages/Auth/ResetPassword";
 // Dashboard
 import Dashboard from "../pages/Dashboard/Admin/Dashboard";
 
-// Developments
-import Developments from "../pages/Dashboard/Admin/Developments";
-import NewDevelopment from "../pages/Dashboard/Admin/NewDevelopment";
-import EditDevelopment from "../pages/Dashboard/Admin/EditDevelopment";
-import DevelopmentListings from "../pages/Dashboard/Admin/DevelopmentListings";
 
 // Listings
 import Listings from "../pages/Dashboard/Admin/Listings";
@@ -96,22 +84,6 @@ export default function AppRoutes() {
         <Route
           path="/"
           element={<Home />}
-        />
-
-        {/* Developments */}
-        <Route
-          path="/developments"
-          element={<PublicDevelopments />}
-        />
-
-        <Route
-          path="/developments/:developmentId"
-          element={<DevelopmentDetails />}
-        />
-
-        <Route
-          path="/developments/:developmentId/listings"
-          element={<DevelopmentListingsPublic />}
         />
 
 
@@ -195,48 +167,7 @@ export default function AppRoutes() {
           ADMIN — DEVELOPMENTS
       ===================================================== */}
 
-      {/* All Developments */}
-      <Route
-        path="/admin/developments"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <Developments />
-          </ProtectedRoute>
-        }
-      />
-
-
-      {/* Create Development */}
-      <Route
-        path="/admin/developments/new"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <NewDevelopment />
-          </ProtectedRoute>
-        }
-      />
-
-
-      {/* Edit Development */}
-      <Route
-        path="/admin/developments/:developmentId/edit"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <EditDevelopment />
-          </ProtectedRoute>
-        }
-      />
-
-
-      {/* Development Listings */}
-      <Route
-        path="/admin/developments/:developmentId/listings"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}> 
-            <DevelopmentListings />
-          </ProtectedRoute>
-        }
-      />
+    
 
 
       {/* =====================================================

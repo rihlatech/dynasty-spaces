@@ -7,9 +7,7 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "../../config/SupabaseClient";
 
 import Hero from "./Hero";
-
-// import DevelopmentCard from "../../components/website/DevelopmentCard";
-import ListingsCarousel from "../../components/website/ListingsCarousel";
+import ListingCard from "../../components/website/ListingCard";
 
 
 export default function Home() {
@@ -66,10 +64,6 @@ export default function Home() {
       .from("listings")
       .select(`
         *,
-        developments (
-          id,
-          name
-        ),
         listing_media (
           media_url,
           is_primary
@@ -268,126 +262,49 @@ useEffect(() => {
 
     {loading ? (
 
-  <div className="space-y-16">
+  <div
+  className="
+    grid
+    grid-cols-2
+    md:grid-cols-2
+    lg:grid-cols-3
+    gap-4
+    md:gap-6
+  "
+>
+  {[1, 2, 3, 4, 5, 6].map((card) => (
+    <div
+      key={card}
+      className="
+        overflow-hidden
+        border
+        border-white/5
+        bg-[#0A0A0A]
+      "
+    >
+      <div
+        className="
+          h-48
+          md:h-64
+          bg-white/10
+          animate-pulse
+        "
+      />
 
-    {[1, 2, 3].map((group) => (
+      <div className="p-4 md:p-6 space-y-3">
 
-      <div key={group}>
+        <div className="h-3 w-20 bg-white/10 animate-pulse" />
 
-        {/* DEVELOPMENT HEADER SKELETON */}
+        <div className="h-5 w-3/4 bg-white/10 animate-pulse" />
 
-        <div className="mb-8">
+        <div className="h-3 w-1/2 bg-white/10 animate-pulse" />
 
-          <div
-            className="
-              h-3
-              w-28
-              bg-white/10
-              animate-pulse
-            "
-          />
-
-          <div
-            className="
-              mt-3
-              h-9
-              w-56
-              bg-white/10
-              animate-pulse
-            "
-          />
-
-        </div>
-
-
-        {/* PROPERTY CARDS SKELETON */}
-
-        <div
-          className="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            lg:grid-cols-3
-            gap-6
-          "
-        >
-
-          {[1, 2, 3].map((card) => (
-
-            <div
-              key={card}
-              className="
-                overflow-hidden
-                border
-                border-white/5
-                bg-[#0A0A0A]
-              "
-            >
-
-              {/* IMAGE */}
-
-              <div
-                className="
-                  h-64
-                  bg-white/10
-                  animate-pulse
-                "
-              />
-
-
-              {/* CONTENT */}
-
-              <div className="p-6 space-y-4">
-
-                <div
-                  className="
-                    h-3
-                    w-24
-                    bg-white/10
-                    animate-pulse
-                  "
-                />
-
-                <div
-                  className="
-                    h-6
-                    w-3/4
-                    bg-white/10
-                    animate-pulse
-                  "
-                />
-
-                <div
-                  className="
-                    h-4
-                    w-1/2
-                    bg-white/10
-                    animate-pulse
-                  "
-                />
-
-                <div
-                  className="
-                    h-5
-                    w-32
-                    bg-white/10
-                    animate-pulse
-                  "
-                />
-
-              </div>
-
-            </div>
-
-          ))}
-
-        </div>
+        <div className="h-4 w-28 bg-white/10 animate-pulse" />
 
       </div>
-
-    ))}
-
-  </div>
+    </div>
+  ))}
+</div>
 
 ) : listings.length === 0 ? (
 
@@ -405,93 +322,32 @@ useEffect(() => {
 
       <div className="space-y-16">
 
-        {Object.values(
-          listings.reduce((groups, listing) => {
+        {!loading && listings.length > 0 && (
+<div
+  className="
+    grid
+    grid-cols-2
+    lg:grid-cols-3
+    gap-3
+    sm:gap-5
+    lg:gap-6
+  "
+>
+  {listings.slice(0, 6).map((listing) => (
+    <ListingCard
+      key={listing.id}
+      listing={listing}
+    />
+  ))}
+</div>
 
-            const developmentId =
-              listing.developments?.id;
+     
 
-            const developmentName =
-              listing.developments?.name ||
-              "Other Properties";
+         )}
 
-            if (!groups[developmentId]) {
+         
 
-              groups[developmentId] = {
-                id: developmentId,
-                name: developmentName,
-                listings: [],
-              };
-
-            }
-
-            groups[developmentId].listings.push(
-              listing
-            );
-
-            return groups;
-
-          }, {})
-        )
-        .slice(0, 3)
-        .map((group) => (
-
-          <div
-            key={group.id || group.name}
-          >
-
-            {/* Development Heading */}
-
-            <div
-              className="
-                flex
-                items-center
-                justify-between
-                mb-7
-              "
-            >
-
-              <div>
-
-                <p
-                  className="
-                    text-xs
-                    uppercase
-                    tracking-[0.25em]
-                    text-[#C9A758]
-                    mb-2
-                  "
-                >
-                  Properties at
-                </p>
-
-                <h3
-                  className="
-                    text-2xl
-                    md:text-3xl
-                    font-bold
-                    text-white
-                  "
-                >
-                  {group.name}
-                </h3>
-
-              </div>
-
-            </div>
-
-
-            {/* Listings Carousel */}
-
-            <ListingsCarousel
-              listings={group.listings}
-            />
-
-          </div>
-
-        ))}
-
-        {/* ================================================= */}
+{/* ================================================= */}
 {/* VIEW ALL PROPERTIES */}
 {/* ================================================= */}
 
@@ -528,62 +384,7 @@ useEffect(() => {
 
 
 
-        {/* ================================================= */}
-        {/* VIEW MORE */}
-        {/* ================================================= */}
-
-        {/* {Object.keys(
-          listings.reduce((groups, listing) => {
-
-            const id =
-              listing.developments?.id ||
-              "other";
-
-            groups[id] = true;
-
-            return groups;
-
-          }, {})
-        ).length > 5 && (
-
-          <div
-            className="
-              pt-4
-              flex
-              justify-center
-            "
-          >
-
-            <button
-              onClick={() =>
-                navigate("/properties")
-              }
-              className="
-                px-8
-                py-4
-
-                rounded-xl
-
-                border
-                border-[#C9A758]
-
-                text-[#C9A758]
-
-                font-semibold
-
-                hover:bg-[#C9A758]
-                hover:text-black
-
-                transition-all
-                duration-300
-              "
-            >
-              View More Properties →
-            </button>
-
-          </div>
-
-        )} */}
+        
 
       </div>
 

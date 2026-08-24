@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 
 import { supabase } from "../../config/SupabaseClient";
 
-import ListingsCarousel from "../../components/website/ListingsCarousel";
+import ListingCard from "../../components/website/ListingCard";
 import PropertyFilters from "../../components/website/PropertyFilters";
 
 import propertyHero from "../../assets/images/PublicDevelopment.avif";
@@ -60,10 +60,7 @@ export default function Properties() {
         .from("listings")
         .select(`
           *,
-          developments (
-            id,
-            name
-          ),
+         
           listing_media (
             media_url,
             is_primary
@@ -150,16 +147,13 @@ export default function Properties() {
           .trim();
 
       const matchesSearch =
-        !searchTerm ||
-        listing.title
-          ?.toLowerCase()
-          .includes(searchTerm) ||
-        listing.location
-          ?.toLowerCase()
-          .includes(searchTerm) ||
-        listing.developments?.name
-          ?.toLowerCase()
-          .includes(searchTerm);
+  !searchTerm ||
+  listing.title
+    ?.toLowerCase()
+    .includes(searchTerm) ||
+  listing.location
+    ?.toLowerCase()
+    .includes(searchTerm);
 
       // =====================================================
       // PROPERTY TYPE
@@ -268,44 +262,44 @@ export default function Properties() {
   // GROUP FILTERED LISTINGS BY DEVELOPMENT
   // =========================================================
 
-  const groupedProperties = Object.values(
+  // const groupedProperties = Object.values(
 
-    filteredListings.reduce(
-      (groups, listing) => {
+  //   filteredListings.reduce(
+  //     (groups, listing) => {
 
-        const developmentId =
-          listing.developments?.id ||
-          "other";
+  //       const developmentId =
+  //         listing.developments?.id ||
+  //         "other";
 
-        const developmentName =
-          listing.developments?.name ||
-          "Other Properties";
+  //       const developmentName =
+  //         listing.developments?.name ||
+  //         "Other Properties";
 
-        if (!groups[developmentId]) {
+  //       if (!groups[developmentId]) {
 
-          groups[developmentId] = {
+  //         groups[developmentId] = {
 
-            id: developmentId,
+  //           id: developmentId,
 
-            name: developmentName,
+  //           name: developmentName,
 
-            listings: [],
+  //           listings: [],
 
-          };
+  //         };
 
-        }
+  //       }
 
-        groups[developmentId].listings.push(
-          listing
-        );
+  //       groups[developmentId].listings.push(
+  //         listing
+  //       );
 
-        return groups;
+  //       return groups;
 
-      },
-      {}
-    )
+  //     },
+  //     {}
+  //   )
 
-  );
+  // );
 
 
   return (
@@ -806,96 +800,31 @@ export default function Properties() {
 
           {/* GROUPS */}
 
-          {!loading &&
-            groupedProperties.length > 0 && (
+        {!loading &&
+  filteredListings.length > 0 && (
 
-              <div
-                className="
-                  space-y-20
-                "
-              >
+    <div
+      className="
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        lg:grid-cols-3
+        gap-6
+      "
+    >
 
-                {groupedProperties.map(
-                  (group) => (
+      {filteredListings.map((listing) => (
 
-                    <section
-                      key={group.id}
-                    >
+        <ListingCard
+          key={listing.id}
+          listing={listing}
+        />
 
-                      {/* DEVELOPMENT HEADER */}
+      ))}
 
-                      <div
-                        className="
-                          flex
-                          items-end
-                          justify-between
-                          gap-6
-                          mb-8
-                        "
-                      >
+    </div>
 
-                        <div>
-
-                          <p
-                            className="
-                              text-xs
-                              uppercase
-                              tracking-[0.25em]
-                              text-[#C9A758]
-                              mb-2
-                            "
-                          >
-                            Properties at
-                          </p>
-
-
-                          <h2
-                            className="
-                              text-3xl
-                              md:text-4xl
-                              font-bold
-                              text-white
-                            "
-                          >
-                            {group.name}
-                          </h2>
-
-                        </div>
-
-
-                        {/* PROPERTY COUNT */}
-
-                        <span
-                          className="
-                            hidden
-                            md:block
-                            text-sm
-                            text-gray-500
-                          "
-                        >
-                          {group.listings.length}{" "}
-                          {group.listings.length === 1
-                            ? "property"
-                            : "properties"}
-                        </span>
-
-                      </div>
-
-
-                      {/* CAROUSEL */}
-
-                      <ListingsCarousel
-                        listings={group.listings}
-                      />
-
-                    </section>
-
-                  )
-                )}
-
-              </div>
-
-            )}
+  )}
 
         </div>
 

@@ -65,70 +65,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* =====================================================
-          MOBILE MENU BUTTON
-      ===================================================== */}
-
-      {/* <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="
-          fixed
-          top-4
-          left-4
-          z-[60]
-
-          lg:hidden
-
-          w-11
-          h-11
-
-          rounded-xl
-
-          flex
-          items-center
-          justify-center
-
-          bg-[#101F34]
-          text-white
-
-          border
-          border-white/10
-
-          shadow-lg
-
-          hover:bg-[#172941]
-          hover:text-[#C9A758]
-
-          transition
-        "
-        aria-label="Open navigation menu"
-      >
-        <Menu size={22} />
-      </button> */}
-
-
-      {/* =====================================================
-          MOBILE BACKDROP
-      ===================================================== */}
-
-      {/* {isOpen && (
-
-        <div
-          className="
-            fixed
-            inset-0
-            z-[70]
-
-            bg-black/60
-            backdrop-blur-sm
-
-            lg:hidden
-          "
-          onClick={() => setIsOpen(false)}
-        />
-
-      )} */}
+      
 
 
       {/* =====================================================
@@ -228,42 +165,6 @@ export default function Sidebar() {
 
             </div>
 
-
-            {/* MOBILE CLOSE BUTTON */}
-
-            {/* <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="
-                ml-auto
-
-                lg:hidden
-
-                w-9
-                h-9
-
-                shrink-0
-
-                rounded-lg
-
-                flex
-                items-center
-                justify-center
-
-                text-gray-400
-
-                hover:bg-white/10
-                hover:text-white
-
-                transition
-              "
-              aria-label="Close navigation menu"
-            >
-
-              <X size={20} />
-
-            </button> */}
-
           </div>
 
         </div>
@@ -298,23 +199,6 @@ export default function Sidebar() {
           />
 
 
-          <SidebarItem
-            icon={<Building2 size={20} />}
-            title="Developments"
-            active={
-              location.pathname.startsWith(
-                "/admin/developments"
-              ) &&
-              !location.pathname.startsWith(
-                "/admin/developments/archived"
-              )
-            }
-            onClick={() =>
-              handleNavigate(
-                "/admin/developments"
-              )
-            }
-          />
 
 
           <SidebarItem

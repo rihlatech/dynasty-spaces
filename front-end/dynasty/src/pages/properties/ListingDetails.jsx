@@ -82,11 +82,7 @@ export default function ListingDetails() {
 
         .select(`
           *,
-          developments (
-            id,
-            name
-          ),
-          listing_media (
+            listing_media (
             media_url,
             is_primary
           )

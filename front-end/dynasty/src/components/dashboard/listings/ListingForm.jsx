@@ -34,7 +34,7 @@ export default function ListingForm({
   // DEVELOPMENTS
   // =========================================================
 
-  const [developments, setDevelopments] = useState([]);
+  // const [developments, setDevelopments] = useState([]);
 
 
   // =========================================================
@@ -94,7 +94,7 @@ export default function ListingForm({
 
   const [formData, setFormData] = useState({
 
-    development_id: "",
+    // development_id: "",
 
     title: "",
 
@@ -134,26 +134,26 @@ export default function ListingForm({
   // FETCH DEVELOPMENTS
   // =========================================================
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const fetchDevelopments = async () => {
+  //   const fetchDevelopments = async () => {
 
-      const { data, error } = await supabase
-        .from("developments")
-        .select("id, name")
-        .order("name");
+  //     const { data, error } = await supabase
+  //       .from("developments")
+  //       .select("id, name")
+  //       .order("name");
 
-      if (error) {
-        console.error("Developments fetch error:", error);
-        return;
-      }
+  //     if (error) {
+  //       console.error("Developments fetch error:", error);
+  //       return;
+  //     }
 
-      setDevelopments(data || []);
-    };
+  //     setDevelopments(data || []);
+  //   };
 
-    fetchDevelopments();
+  //   fetchDevelopments();
 
-  }, []);
+  // }, []);
 
 
   // =========================================================
@@ -226,7 +226,7 @@ export default function ListingForm({
 
         setFormData({
 
-          development_id: data.development_id || "",
+          // development_id: data.development_id || "",
 
           title: data.title || "",
 
@@ -968,13 +968,6 @@ const validate = () => {
   const newErrors = {};
 
 
-  // Development
-  if (!formData.development_id) {
-    newErrors.development_id =
-      "Please select a development";
-  }
-
-
   // Title
   if (!formData.title.trim()) {
     newErrors.title =
@@ -1037,150 +1030,6 @@ const validate = () => {
   return Object.keys(newErrors).length === 0;
 
 };
-
-
-
-// =========================================================
-// UPLOAD PROPERTY MEDIA
-// =========================================================
-
-// const uploadMedia = async (listingId) => {
-
-//   if (!mediaFiles.length) {
-//     return [];
-//   }
-
-//   const uploadedFiles = [];
-
-//   for (const [index, file] of mediaFiles.entries()) {
-
-//     try {
-
-//       // -----------------------------------------------------
-//       // FILE EXTENSION
-//       // -----------------------------------------------------
-
-//       const fileExt =
-//         file.name
-//           .split(".")
-//           .pop()
-//           .toLowerCase();
-
-
-//       // -----------------------------------------------------
-//       // UNIQUE FILE NAME
-//       // -----------------------------------------------------
-
-//       const fileName =
-//         `${crypto.randomUUID()}.${fileExt}`;
-
-
-//       // -----------------------------------------------------
-//       // STORAGE PATH
-//       // -----------------------------------------------------
-
-//       const filePath =
-//         `${listingId}/${fileName}`;
-
-
-//       // -----------------------------------------------------
-//       // UPLOAD TO STORAGE
-//       // -----------------------------------------------------
-
-//       const {
-//         error: uploadError
-//       } = await supabase.storage
-//         .from("listing-media")
-//         .upload(
-//           filePath,
-//           file,
-//           {
-//             cacheControl: "3600",
-//             upsert: false,
-//           }
-//         );
-
-
-//       if (uploadError) {
-//         throw uploadError;
-//       }
-
-
-//       // -----------------------------------------------------
-//       // GET PUBLIC URL
-//       // -----------------------------------------------------
-
-//       const {
-//         data: publicUrlData
-//       } = supabase.storage
-//         .from("listing-media")
-//         .getPublicUrl(filePath);
-
-
-//       if (!publicUrlData?.publicUrl) {
-
-//         throw new Error(
-//           "Unable to generate the public URL for the uploaded image."
-//         );
-
-//       }
-
-
-//       // -----------------------------------------------------
-//       // PREPARE DATABASE RECORD
-//       // -----------------------------------------------------
-
-//       uploadedFiles.push({
-
-//         listing_id: listingId,
-
-//         media_url:
-//           publicUrlData.publicUrl,
-
-//         storage_path:
-//           filePath,
-
-//         media_type:
-//           file.type.startsWith("image/")
-//             ? "image"
-//             : "video",
-
-//         is_primary:
-//           index === 0 &&
-//           mediaPreviews.every(
-//             (media, previewIndex) =>
-//               previewIndex === 0 ||
-//               !media.isExisting
-//           ),
-
-//         display_order:
-//           index + 1,
-
-//         file_name:
-//           file.name,
-
-//         file_size:
-//           file.size,
-
-//       });
-
-//     } catch (error) {
-
-//       console.error(
-//         `Media upload failed for ${file.name}:`,
-//         error
-//       );
-
-//       throw error;
-//     }
-
-//   }
-
-
-//   return uploadedFiles;
-
-// };
-
 
 // =========================================================
  // UPLOAD VIRTUAL TOUR
@@ -1545,9 +1394,6 @@ const saveListing = async () => {
     // =====================================================
 
     const payload = {
-
-      development_id:
-        formData.development_id,
 
       title:
         formData.title.trim(),
@@ -2092,7 +1938,7 @@ return (
 
         {/* DEVELOPMENT */}
 
-        <div>
+        {/* <div>
 
           <label
             className="
@@ -2165,7 +2011,7 @@ return (
 
           )}
 
-        </div>
+        </div> */}
 
 
         {/* TITLE */}

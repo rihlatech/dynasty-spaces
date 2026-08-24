@@ -37,9 +37,6 @@ export default function Listings() {
   .from("listings")
   .select(`
     *,
-    developments (
-      name
-    ),
     listing_media (
       media_url,
       is_primary
