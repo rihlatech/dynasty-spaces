@@ -15,6 +15,7 @@ export default function Properties() {
 
   // Property types fetched from the database
   const [propertyTypes, setPropertyTypes] = useState([]);
+  const [locations, setLocations] = useState([]);
 
   // =========================================================
   // FILTER STATE
@@ -22,6 +23,7 @@ export default function Properties() {
 
   const [filters, setFilters] = useState({
     search: "",
+    location: "",
     propertyType: "",
     listingType: "",
     bedrooms: "",
@@ -105,6 +107,19 @@ export default function Properties() {
 
       setPropertyTypes(uniquePropertyTypes);
 
+      //=============================================
+      //GET UNIQUE LOCATION
+      //=============================================
+      const uniqueLocations = [
+  ...new Set(
+    dataListings
+      .map((listing) => listing.location?.trim())
+      .filter(Boolean)
+  ),
+].sort();
+
+setLocations(uniqueLocations);
+
     } catch (error) {
 
       console.error(
@@ -154,6 +169,18 @@ export default function Properties() {
   listing.location
     ?.toLowerCase()
     .includes(searchTerm);
+
+    // ===============================================
+    // LOCATION
+    //============================================
+    const matchesLocation =
+  !filters.location ||
+  listing.location
+    ?.toLowerCase()
+    .trim() ===
+  filters.location
+    .toLowerCase()
+    .trim();
 
       // =====================================================
       // PROPERTY TYPE
@@ -210,13 +237,14 @@ export default function Properties() {
           Number(filters.maxPrice);
 
       return (
-        matchesSearch &&
-        matchesPropertyType &&
-        matchesListingType &&
-        matchesBedrooms &&
-        matchesMinPrice &&
-        matchesMaxPrice
-      );
+  matchesSearch &&
+  matchesLocation &&
+  matchesPropertyType &&
+  matchesListingType &&
+  matchesBedrooms &&
+  matchesMinPrice &&
+  matchesMaxPrice
+);
 
     })
     .sort((a, b) => {
@@ -554,6 +582,7 @@ export default function Properties() {
   onChange={setFilters}
   onClear={clearFilters}
   propertyTypes={propertyTypes}
+  locations={locations}
 />
 
   </div>

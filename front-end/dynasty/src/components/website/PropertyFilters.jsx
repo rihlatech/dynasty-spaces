@@ -9,6 +9,7 @@ export default function PropertyFilters({
   onChange,
   onClear,
   propertyTypes = [],
+  locations = [],
 }) {
   const updateFilter = (name, value) => {
     onChange({
@@ -91,7 +92,7 @@ export default function PropertyFilters({
 
       {/* Filters */}
 
-      <div
+   <div
   className="
     grid
     w-full
@@ -109,7 +110,7 @@ export default function PropertyFilters({
 
         {/* Search */}
 
-        <div className="relative min-w-0 xl:col-span-2">
+        <div className="relative min-w-0">
 
           <Search
             size={18}
@@ -155,6 +156,41 @@ export default function PropertyFilters({
 />
 
         </div>
+
+        {/* Location */}
+
+<select
+  value={filters.location}
+  onChange={(e) =>
+    updateFilter("location", e.target.value)
+  }
+  className="
+    w-full
+    min-w-0
+    rounded-xl
+    border
+    border-white/10
+    bg-[#101010]
+    px-4
+    py-3.5
+    text-white
+    outline-none
+    focus:border-[#C9A758]
+  "
+>
+  <option value="">
+    All Locations
+  </option>
+
+  {locations.map((location) => (
+    <option
+      key={location}
+      value={location}
+    >
+      {location}
+    </option>
+  ))}
+</select>
 
 
         {/* Property Type */}
