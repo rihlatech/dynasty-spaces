@@ -162,31 +162,64 @@ export default function ListingCard({
         =================================================== */}
 
         <div
-          className="
-            h-36
-            sm:h-56
-            lg:h-72
+  className="
+    relative
+    h-36
+    sm:h-56
+    lg:h-72
+    overflow-hidden
+  "
+>
+  <img
+    src={imageUrl}
+    alt={title}
+    className="
+      w-full
+      h-full
+      object-cover
+      transition
+      duration-500
+      hover:scale-105
+    "
+  />
 
-            overflow-hidden
-          "
-        >
+  {/* Listing Type Badge */}
 
-          <img
-            src={imageUrl}
-            alt={title}
-            className="
-              w-full
-              h-full
-              object-cover
+  <div
+    className="
+      absolute
+      top-3
+      left-3
+      sm:top-5
+      sm:left-5
 
-              transition
-              duration-500
+      px-3
+      py-1.5
+      sm:px-4
+      sm:py-2
 
-              hover:scale-105
-            "
-          />
+      rounded-full
 
-        </div>
+      bg-black/75
+      backdrop-blur-md
+
+      border
+      border-[#C9A758]/50
+
+      text-[9px]
+      sm:text-xs
+
+      font-semibold
+
+      text-[#C9A758]
+
+      uppercase
+      tracking-wide
+    "
+  >
+    {listingType}
+  </div>
+</div>
 
 
         {/* ===================================================
@@ -393,39 +426,20 @@ export default function ListingCard({
 
             <div className="min-w-0">
 
-              <p
-                className="
-                  text-[8px]
-                  sm:text-xs
+  <h4
+    className="
+      text-xs
+      sm:text-lg
+      lg:text-3xl
+      font-bold
+      text-[#C9A758]
+      truncate
+    "
+  >
+    {currency} {price}
+  </h4>
 
-                  text-gray-500
-
-                  truncate
-                "
-              >
-                {listingType}
-              </p>
-
-
-              <h4
-                className="
-                  mt-1
-
-                  text-xs
-                  sm:text-lg
-                  lg:text-3xl
-
-                  font-bold
-
-                  text-[#C9A758]
-
-                  truncate
-                "
-              >
-                {currency} {price}
-              </h4>
-
-            </div>
+</div>
 
 
             {/* DETAILS BUTTON */}
