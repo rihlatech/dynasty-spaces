@@ -40,6 +40,7 @@ export default function Properties() {
 
     setFilters({
       search: "",
+      location: "",
       propertyType: "",
       listingType: "",
       bedrooms: "",

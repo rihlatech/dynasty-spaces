@@ -129,7 +129,7 @@ export default function PropertyFilters({
   onChange={(e) =>
     updateFilter("search", e.target.value)
   }
-  placeholder="Search property or location..."
+  placeholder="Search "
   className="
     w-full
     min-w-0
