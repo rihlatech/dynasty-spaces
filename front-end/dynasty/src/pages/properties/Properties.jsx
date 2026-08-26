@@ -18,6 +18,14 @@ export default function Properties() {
   const [locations, setLocations] = useState([]);
 
   // =========================================================
+// PAGINATION
+// =========================================================
+
+const [currentPage, setCurrentPage] = useState(1);
+
+const propertiesPerPage = 15;
+
+  // =========================================================
   // FILTER STATE
   // =========================================================
 
@@ -48,6 +56,7 @@ export default function Properties() {
       maxPrice: "",
       sort: "newest",
     });
+    setCurrentPage(1);
 
   };
 
@@ -286,6 +295,26 @@ setLocations(uniqueLocations);
       );
 
     });
+
+    // =========================================================
+// PAGINATION CALCULATIONS
+// =========================================================
+
+const totalPages = Math.ceil(
+  filteredListings.length / propertiesPerPage
+);
+
+const startIndex =
+  (currentPage - 1) * propertiesPerPage;
+
+const endIndex =
+  startIndex + propertiesPerPage;
+
+const currentListings =
+  filteredListings.slice(
+    startIndex,
+    endIndex
+  );
 
   // =========================================================
   // GROUP FILTERED LISTINGS BY DEVELOPMENT
@@ -580,7 +609,10 @@ setLocations(uniqueLocations);
 
 <PropertyFilters
   filters={filters}
-  onChange={setFilters}
+  onChange={(newFilters) => {
+  setFilters(newFilters);
+  setCurrentPage(1);
+}}
   onClear={clearFilters}
   propertyTypes={propertyTypes}
   locations={locations}
@@ -843,18 +875,169 @@ setLocations(uniqueLocations);
       "
     >
 
-      {filteredListings.map((listing) => (
+      {currentListings.map((listing) => (
 
-        <ListingCard
-          key={listing.id}
-          listing={listing}
-        />
+  <ListingCard
+    key={listing.id}
+    listing={listing}
+  />
 
-      ))}
+))}
 
     </div>
 
   )}
+{/* 
+  //============================================
+  //PAGINATION
+  //============================================ */}
+  {!loading &&
+  filteredListings.length > 0 && (
+
+    <div
+      className="
+        mt-12
+        flex
+        flex-col
+        items-center
+        justify-center
+        gap-5
+      "
+    >
+
+      {/* RESULTS INFO */}
+
+      <p
+        className="
+          text-sm
+          text-gray-400
+          text-center
+        "
+      >
+        Showing{" "}
+        <span className="text-white font-medium">
+          {startIndex + 1}
+        </span>
+        {" – "}
+        <span className="text-white font-medium">
+          {Math.min(
+            endIndex,
+            filteredListings.length
+          )}
+        </span>
+        {" of "}
+        <span className="text-white font-medium">
+          {filteredListings.length}
+        </span>
+        {" properties"}
+      </p>
+
+
+      {/* PAGE CONTROLS */}
+
+      <div
+        className="
+          flex
+          items-center
+          justify-center
+          gap-2
+        "
+      >
+
+        {/* PREVIOUS */}
+
+        <button
+          type="button"
+          onClick={() =>
+            setCurrentPage((page) =>
+              Math.max(page - 1, 1)
+            )
+          }
+          disabled={currentPage === 1}
+          className="
+            px-4
+            py-2
+
+            border
+            border-white/10
+
+            text-gray-300
+
+            hover:border-[#C9A758]
+            hover:text-[#C9A758]
+
+            disabled:opacity-30
+            disabled:cursor-not-allowed
+
+            transition
+          "
+        >
+          ←
+        </button>
+
+
+        {/* PAGE */}
+
+        <span
+          className="
+            px-4
+            py-2
+
+            border
+            border-[#C9A758]/40
+
+            text-[#C9A758]
+
+            text-sm
+            font-medium
+          "
+        >
+          Page {currentPage} of {totalPages}
+        </span>
+
+
+        {/* NEXT */}
+
+        <button
+          type="button"
+          onClick={() =>
+            setCurrentPage((page) =>
+              Math.min(
+                page + 1,
+                totalPages
+              )
+            )
+          }
+          disabled={currentPage === totalPages}
+          className="
+            px-4
+            py-2
+
+            border
+            border-white/10
+
+            text-gray-300
+
+            hover:border-[#C9A758]
+            hover:text-[#C9A758]
+
+            disabled:opacity-30
+            disabled:cursor-not-allowed
+
+            transition
+          "
+        >
+          →
+        </button>
+
+      </div>
+
+    </div>
+
+  )}
+  
+   {/* ============================  */}
+
 
         </div>
 

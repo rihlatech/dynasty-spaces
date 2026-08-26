@@ -365,7 +365,7 @@ export default function ListingCard({
               />
 
               <span className="truncate">
-                {bedrooms} Beds
+                {bedrooms} Bedrooms
               </span>
 
             </div>

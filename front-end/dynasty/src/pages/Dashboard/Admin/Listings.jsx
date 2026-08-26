@@ -66,6 +66,53 @@ useEffect(() => {
   fetchListings();
 }, []);
 
+//--------------------------------------------------
+
+const handleToggleFeatured = async (listing) => {
+  try {
+
+    const newFeaturedStatus = !listing.featured;
+
+    // If we're trying to feature a listing,
+    // make sure we haven't reached the maximum of 10.
+    if (newFeaturedStatus) {
+
+      const featuredCount = listings.filter(
+        (item) => item.featured
+      ).length;
+
+      if (featuredCount >= 10) {
+        alert(
+          "You can only have a maximum of 10 featured listings."
+        );
+        return;
+      }
+
+    }
+
+    const { error } = await supabase
+      .from("listings")
+      .update({
+        featured: newFeaturedStatus,
+      })
+      .eq("id", listing.id);
+
+    if (error) throw error;
+
+    await fetchListings();
+
+  } catch (error) {
+
+    console.error(
+      "Toggle featured error:",
+      error
+    );
+
+    alert(error.message);
+
+  }
+};
+
 // ------------------------------------------
 const handleArchive = async (listing) => {
   try {
@@ -476,6 +523,7 @@ const archived = listings.filter(
   onDelete={handleDelete}
   onArchive={handleArchive}
   onRestore={handleRestore}
+  onToggleFeatured={handleToggleFeatured}
 />
 
 </div>

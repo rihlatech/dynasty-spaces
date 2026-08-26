@@ -4,6 +4,7 @@ import {
   Loader2,
   Archive,
   ArchiveRestore,
+  Star,
 } from "lucide-react";
 
 
@@ -14,6 +15,7 @@ export default function ListingTable({
   onDelete,
   onArchive,
   onRestore,
+  onToggleFeatured,
 }) {
 
   return (
@@ -65,6 +67,10 @@ export default function ListingTable({
             </th>
 
             <th className="px-6 py-5 text-center text-sm font-semibold dark:text-white">
+              Featured
+            </th>
+
+            <th className="px-6 py-5 text-center text-sm font-semibold dark:text-white">
               Actions
             </th>
 
@@ -83,7 +89,7 @@ export default function ListingTable({
             <tr>
 
               <td
-                colSpan={8}
+                colSpan={9}
                 className="py-16"
               >
 
@@ -235,6 +241,41 @@ export default function ListingTable({
 
                   </td>
 
+                  {/* Featured */}
+
+    <td className="px-6 py-5 text-center">
+
+  <button
+    type="button"
+    onClick={() => onToggleFeatured(listing)}
+    title={
+      listing.featured
+        ? "Remove from featured"
+        : "Add to featured"
+    }
+    className="
+      p-2
+      rounded-lg
+      transition
+
+      hover:bg-gray-100
+      dark:hover:bg-[#1A1A1A]
+    "
+  >
+
+    <Star
+      size={20}
+      className={
+        listing.featured
+          ? "fill-[#C9A758] text-[#C9A758]"
+          : "text-gray-400"
+      }
+    />
+
+  </button>
+
+</td>
+
 
                   {/* Actions */}
 
@@ -372,7 +413,7 @@ export default function ListingTable({
               <tr>
 
                 <td
-                  colSpan={8}
+                  colSpan={9}
                   className="py-20 text-center"
                 >
 

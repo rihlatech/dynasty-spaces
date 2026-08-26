@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft , ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 import { supabase } from "../../config/SupabaseClient";
@@ -15,44 +15,21 @@ export default function Home() {
 
   // const [developments, setDevelopments] = useState([]);
   const [listings, setListings] = useState([]);
+const [homepageListings, setHomepageListings] = useState([]);
 
-  const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(true);
+const featuredScrollRef = useRef(null);
 
-// --------------------------------------------FETCH DEVELOPMENTS----------------------
-  // const fetchDevelopments = async () => {
+///----------------------
 
-  //   try {
+const scrollFeatured = (direction) => {
+  if (!featuredScrollRef.current) return;
 
-  //     const { data, error } = await supabase
-  //       .from("developments")
-  //       .select("*")
-  //       .eq("status", "published")
-  //       .order("created_at", {
-  //         ascending: false,
-  //       });
-
-
-  //     if(error) throw error;
-
-
-  //     setDevelopments(data || []);
-
-
-  //   } catch(error){
-
-  //     console.error(
-  //       "Fetch developments error:",
-  //       error
-  //     );
-
-
-  //   } finally {
-
-  //     setLoading(false);
-
-  //   }
-
-  // };
+  featuredScrollRef.current.scrollBy({
+    left: direction === "left" ? -400 : 400,
+    behavior: "smooth",
+  });
+};
 
   // -------------------FETCH LISTINGS---------------
 
@@ -74,11 +51,36 @@ export default function Home() {
         ascending: false,
       });
 
-    if (error) throw error;
+   if (error) throw error;
 
-    setListings(data || []);
+const dataListings = data || [];
 
-  } catch (error) {
+setListings(dataListings);
+
+// =====================================================
+// PRIORITIZE FEATURED LISTINGS FOR HOMEPAGE
+// =====================================================
+
+const featuredListings = dataListings.filter(
+  (listing) => listing.featured === true
+);
+
+const nonFeaturedListings = dataListings.filter(
+  (listing) => listing.featured !== true
+);
+
+// Featured listings appear first.
+// Non-featured listings fill the remaining spaces.
+// Maximum of 10 listings on homepage.
+
+const prioritizedListings = [
+  ...featuredListings,
+  ...nonFeaturedListings,
+].slice(0, 10);
+
+setHomepageListings(prioritizedListings);
+
+} catch (error) {
 
     console.error(
       "Fetch listings error:",
@@ -197,7 +199,7 @@ useEffect(() => {
             text-[#C9A758]
           "
         >
-          Featured Properties
+          Find Your Next Property
         </span>
 
         <h2
@@ -208,7 +210,7 @@ useEffect(() => {
             text-white
           "
         >
-          Find Your Next Property
+          Featured Listings
         </h2>
 
         <p
@@ -263,50 +265,181 @@ useEffect(() => {
     {loading ? (
 
   <div
-  className="
-    grid
-    grid-cols-2
-    md:grid-cols-2
-    lg:grid-cols-3
-    gap-4
-    md:gap-6
-  "
->
-  {[1, 2, 3, 4, 5, 6].map((card) => (
-    <div
-      key={card}
-      className="
-        overflow-hidden
-        border
-        border-white/5
-        bg-[#0A0A0A]
-      "
-    >
+    className="
+      flex
+      gap-3
+      sm:gap-5
+      lg:gap-6
+
+      overflow-hidden
+
+      pb-4
+    "
+  >
+
+    {[1, 2, 3].map((card) => (
+
       <div
+        key={card}
         className="
-          h-48
-          md:h-64
-          bg-white/10
-          animate-pulse
+          shrink-0
+
+          w-[280px]
+          sm:w-[320px]
+          lg:w-[calc((100%-48px)/3)]
+
+          overflow-hidden
+
+          rounded-2xl
+
+          border
+          border-white/10
+
+          bg-[#0F0F0F]
         "
-      />
+      >
 
-      <div className="p-4 md:p-6 space-y-3">
+        {/* IMAGE SKELETON */}
 
-        <div className="h-3 w-20 bg-white/10 animate-pulse" />
+        <div
+          className="
+            h-36
+            sm:h-56
+            lg:h-72
 
-        <div className="h-5 w-3/4 bg-white/10 animate-pulse" />
+            bg-white/10
 
-        <div className="h-3 w-1/2 bg-white/10 animate-pulse" />
+            animate-pulse
+          "
+        />
 
-        <div className="h-4 w-28 bg-white/10 animate-pulse" />
+
+        {/* CONTENT SKELETON */}
+
+        <div
+          className="
+            p-3
+            sm:p-5
+            lg:p-8
+          "
+        >
+
+          {/* PROPERTY TYPE */}
+
+          <div
+            className="
+              h-2
+              sm:h-3
+
+              w-16
+              sm:w-24
+
+              bg-white/10
+
+              animate-pulse
+            "
+          />
+
+
+          {/* TITLE */}
+
+          <div
+            className="
+              mt-3
+
+              h-4
+              sm:h-6
+
+              w-3/4
+
+              bg-white/10
+
+              animate-pulse
+            "
+          />
+
+
+          {/* LOCATION */}
+
+          <div
+            className="
+              mt-4
+
+              h-3
+
+              w-1/2
+
+              bg-white/10
+
+              animate-pulse
+            "
+          />
+
+
+          {/* DETAILS */}
+
+          <div
+            className="
+              mt-6
+
+              flex
+              gap-8
+            "
+          >
+
+            <div
+              className="
+                h-3
+                w-16
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+            <div
+              className="
+                h-3
+                w-20
+
+                bg-white/10
+
+                animate-pulse
+              "
+            />
+
+          </div>
+
+
+          {/* PRICE */}
+
+          <div
+            className="
+              mt-7
+
+              h-5
+              sm:h-7
+
+              w-28
+              sm:w-36
+
+              bg-white/10
+
+              animate-pulse
+            "
+          />
+
+        </div>
 
       </div>
-    </div>
-  ))}
-</div>
+
+    ))}
+
+  </div>
 
 ) : listings.length === 0 ? (
+
 
       <div
         className="
@@ -323,27 +456,149 @@ useEffect(() => {
       <div className="space-y-16">
 
         {!loading && listings.length > 0 && (
-<div
-  className="
-    grid
-    grid-cols-2
-    lg:grid-cols-3
-    gap-3
-    sm:gap-5
-    lg:gap-6
-  "
->
-  {listings.slice(0, 6).map((listing) => (
-    <ListingCard
-      key={listing.id}
-      listing={listing}
-    />
-  ))}
-</div>
+  <div className="relative">
 
-     
+    {/* LEFT ARROW */}
 
-         )}
+    <button
+      type="button"
+      onClick={() => scrollFeatured("left")}
+      aria-label="Previous properties"
+      className="
+        hidden
+        lg:flex
+
+        absolute
+        left-3
+        top-1/2
+        -translate-y-1/2
+
+        z-30
+
+        w-11
+        h-11
+
+        items-center
+        justify-center
+
+        rounded-full
+
+        bg-black/80
+        backdrop-blur-md
+
+        border
+        border-[#C9A758]/60
+
+        text-[#C9A758]
+
+        shadow-lg
+
+        hover:bg-[#C9A758]
+        hover:text-black
+
+        transition-all
+        duration-300
+      "
+    >
+      <ArrowLeft size={20} />
+    </button>
+
+
+    {/* RIGHT ARROW */}
+
+    <button
+      type="button"
+      onClick={() => scrollFeatured("right")}
+      aria-label="Next properties"
+      className="
+        hidden
+        lg:flex
+
+        absolute
+        right-3
+        top-1/2
+        -translate-y-1/2
+
+        z-30
+
+        w-11
+        h-11
+
+        items-center
+        justify-center
+
+        rounded-full
+
+        bg-black/80
+        backdrop-blur-md
+
+        border
+        border-[#C9A758]/60
+
+        text-[#C9A758]
+
+        shadow-lg
+
+        hover:bg-[#C9A758]
+        hover:text-black
+
+        transition-all
+        duration-300
+      "
+    >
+      <ArrowRight size={20} />
+    </button>
+
+
+    {/* SCROLLING CARDS */}
+
+    <div
+      ref={featuredScrollRef}
+      className="
+        flex
+        gap-3
+        sm:gap-5
+        lg:gap-6
+
+        overflow-x-auto
+        overflow-y-hidden
+
+        pb-4
+
+        snap-x
+        snap-mandatory
+
+        scrollbar-thin
+        scrollbar-thumb-[#C9A758]/40
+        scrollbar-track-transparent
+      "
+    >
+
+      {homepageListings.map((listing) => (
+
+        <div
+          key={listing.id}
+          className="
+            shrink-0
+            w-[280px]
+            sm:w-[320px]
+            lg:w-[calc((100%-48px)/3)]
+            snap-start
+          "
+        >
+
+          <ListingCard
+            listing={listing}
+          />
+
+        </div>
+
+      ))}
+
+    </div>
+
+  </div>
+)}
 
          
 
