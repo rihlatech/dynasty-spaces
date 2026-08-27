@@ -57,28 +57,17 @@ const dataListings = data || [];
 
 setListings(dataListings);
 
+
 // =====================================================
-// PRIORITIZE FEATURED LISTINGS FOR HOMEPAGE
+// FEATURED LISTINGS FOR HOMEPAGE
+// Maximum of 7
 // =====================================================
 
-const featuredListings = dataListings.filter(
-  (listing) => listing.featured === true
-);
+const featuredListings = dataListings
+  .filter((listing) => listing.featured === true)
+  .slice(0, 7);
 
-const nonFeaturedListings = dataListings.filter(
-  (listing) => listing.featured !== true
-);
-
-// Featured listings appear first.
-// Non-featured listings fill the remaining spaces.
-// Maximum of 10 listings on homepage.
-
-const prioritizedListings = [
-  ...featuredListings,
-  ...nonFeaturedListings,
-].slice(0, 10);
-
-setHomepageListings(prioritizedListings);
+setHomepageListings(featuredListings);
 
 } catch (error) {
 
