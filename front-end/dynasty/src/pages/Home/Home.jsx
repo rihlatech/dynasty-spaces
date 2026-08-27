@@ -210,7 +210,7 @@ useEffect(() => {
             text-white
           "
         >
-          Featured Listings
+          View Our Latest Properties
         </h2>
 
         <p
