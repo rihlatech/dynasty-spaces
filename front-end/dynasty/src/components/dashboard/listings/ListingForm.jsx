@@ -4,6 +4,7 @@ import { Save, Star } from "lucide-react";
 
 import { supabase } from "../../../config/SupabaseClient";
 import FeedbackModal from "../../../components/modals/FeedbackModal";
+import { amenityIcons } from "../../../config/amenityIcons";
 
 
 export default function ListingForm({
@@ -130,30 +131,7 @@ export default function ListingForm({
 
 
 
-  // =========================================================
-  // FETCH DEVELOPMENTS
-  // =========================================================
-
-  // useEffect(() => {
-
-  //   const fetchDevelopments = async () => {
-
-  //     const { data, error } = await supabase
-  //       .from("developments")
-  //       .select("id, name")
-  //       .order("name");
-
-  //     if (error) {
-  //       console.error("Developments fetch error:", error);
-  //       return;
-  //     }
-
-  //     setDevelopments(data || []);
-  //   };
-
-  //   fetchDevelopments();
-
-  // }, []);
+  
 
 
   // =========================================================
@@ -161,25 +139,23 @@ export default function ListingForm({
   // =========================================================
 
   useEffect(() => {
+  const fetchAmenities = async () => {
+    const { data, error } = await supabase
+      .from("amenities")
+      .select("id, name, description, icon_key, is_active")
+      .eq("is_active", true)
+      .order("name");
 
-    const fetchAmenities = async () => {
+    if (error) {
+      console.error("Amenities fetch error:", error);
+      return;
+    }
 
-      const { data, error } = await supabase
-        .from("amenities")
-        .select("id, name")
-        .order("name");
+    setAmenities(data || []);
+  };
 
-      if (error) {
-        console.error("Amenities fetch error:", error);
-        return;
-      }
-
-      setAmenities(data || []);
-    };
-
-    fetchAmenities();
-
-  }, []);
+  fetchAmenities();
+}, []);
 
 
   // =========================================================
@@ -2847,203 +2823,320 @@ return (
         AMENITIES
     ===================================================== */}
 
-    {/* <section
-      className="
-        bg-white
-        dark:bg-[#121212]
-        border
-        border-gray-200
-        dark:border-white/10
-        rounded-3xl
-        p-8
-      "
-    >
+    {/* =====================================================
+    AMENITIES
+===================================================== */}
 
-      <div
+<section
+  className="
+    bg-white
+    dark:bg-[#121212]
+    border
+    border-gray-200
+    dark:border-white/10
+    rounded-3xl
+    p-8
+  "
+>
+  <div
+    className="
+      flex
+      flex-col
+      md:flex-row
+      md:items-start
+      md:justify-between
+      gap-4
+      mb-8
+    "
+  >
+    <div>
+      <h2
         className="
-          flex
-          flex-col
-          md:flex-row
-          md:items-center
-          md:justify-between
-          gap-3
-          mb-8
+          text-2xl
+          font-bold
+          dark:text-white
         "
       >
+        Property Amenities
+      </h2>
 
-        <div>
+      <p
+        className="
+          text-sm
+          text-gray-500
+          dark:text-gray-400
+          mt-2
+        "
+      >
+        Select the amenities and features available at this property.
+      </p>
+    </div>
 
-          <h2
-            className="
-              text-2xl
-              font-bold
-              dark:text-white
-            "
-          >
-            Amenities
-          </h2>
+    {selectedAmenities.length > 0 && (
+      <div
+        className="
+          inline-flex
+          items-center
+          justify-center
+          rounded-full
+          border
+          border-[#C9A758]/30
+          bg-[#C9A758]/10
+          px-4
+          py-2
+          text-sm
+          font-semibold
+          text-[#C9A758]
+          shrink-0
+        "
+      >
+        {selectedAmenities.length} selected
+      </div>
+    )}
+  </div>
 
-          <p
-            className="
-              text-sm
-              text-gray-500
-              dark:text-gray-400
-              mt-2
-            "
-          >
-            Select the amenities available at this property.
-          </p>
-
-        </div>
-
-
-        <span
-          className="
-            text-sm
-            text-gray-500
-            dark:text-gray-400
-          "
-        >
-          {selectedAmenities.length} selected
-        </span>
-
+  {amenities.length === 0 ? (
+    <div
+      className="
+        rounded-2xl
+        border
+        border-dashed
+        border-gray-200
+        dark:border-white/10
+        bg-gray-50
+        dark:bg-[#1A1A1A]
+        p-8
+        text-center
+      "
+    >
+      <div
+        className="
+          mx-auto
+          flex
+          h-14
+          w-14
+          items-center
+          justify-center
+          rounded-2xl
+          bg-[#C9A758]/10
+          text-[#C9A758]
+        "
+      >
+        <span className="text-2xl">+</span>
       </div>
 
+      <h3
+        className="
+          mt-4
+          text-base
+          font-semibold
+          text-gray-900
+          dark:text-white
+        "
+      >
+        No amenities available
+      </h3>
 
-      {amenities.length === 0 ? (
+      <p
+        className="
+          mt-2
+          text-sm
+          text-gray-500
+          dark:text-gray-400
+        "
+      >
+        Create and activate amenities from the Amenities
+        management page before assigning them to properties.
+      </p>
+    </div>
+  ) : (
+    <div
+      className="
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        lg:grid-cols-3
+        gap-4
+      "
+    >
+      {amenities.map((amenity) => {
+        const Icon =
+          amenityIcons[amenity.icon_key] ||
+          amenityIcons.default;
 
-        <div
-          className="
-            border
-            border-dashed
-            border-gray-300
-            dark:border-white/10
-            rounded-2xl
-            p-8
-            text-center
-            text-gray-500
-            dark:text-gray-400
-          "
-        >
-          No amenities available yet.
-        </div>
+        const isSelected = selectedAmenities.includes(
+          amenity.id
+        );
 
-      ) : (
+        return (
+          <button
+            key={amenity.id}
+            type="button"
+            onClick={() => toggleAmenity(amenity.id)}
+            disabled={loading}
+            className={`
+              group
+              relative
+              w-full
+              text-left
+              rounded-2xl
+              border
+              p-5
+              transition-all
+              duration-200
+              disabled:opacity-50
+              disabled:cursor-not-allowed
 
-        <div
-          className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-3
-            gap-4
-          "
-        >
+              ${
+                isSelected
+                  ? `
+                    border-[#C9A758]
+                    bg-[#C9A758]/10
+                    shadow-[0_0_0_1px_rgba(201,167,88,0.15)]
+                  `
+                  : `
+                    border-gray-200
+                    dark:border-white/10
+                    bg-gray-50
+                    dark:bg-[#1A1A1A]
+                    hover:border-[#C9A758]/50
+                    hover:bg-gray-100
+                    dark:hover:bg-white/[0.04]
+                  `
+              }
+            `}
+          >
+            {/* Selected Indicator */}
+            {isSelected && (
+              <div
+                className="
+                  absolute
+                  top-4
+                  right-4
+                  flex
+                  h-6
+                  w-6
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-[#C9A758]
+                  text-black
+                  text-xs
+                  font-bold
+                "
+              >
+                ✓
+              </div>
+            )}
 
-          {amenities.map((amenity) => {
+            {/* Icon */}
+            <div
+              className={`
+                flex
+                h-12
+                w-12
+                items-center
+                justify-center
+                rounded-xl
+                border
+                transition-all
+                duration-200
 
-            const isSelected =
-              selectedAmenities.includes(
-                amenity.id
-              );
-
-
-            return (
-
-              <button
-                key={amenity.id}
-                type="button"
-                onClick={() =>
-                  toggleAmenity(amenity.id)
+                ${
+                  isSelected
+                    ? `
+                      border-[#C9A758]/40
+                      bg-[#C9A758]/15
+                      text-[#C9A758]
+                    `
+                    : `
+                      border-gray-200
+                      dark:border-white/10
+                      bg-white
+                      dark:bg-white/[0.03]
+                      text-gray-500
+                      dark:text-gray-400
+                      group-hover:border-[#C9A758]/30
+                      group-hover:text-[#C9A758]
+                    `
                 }
+              `}
+            >
+              <Icon
+                size={23}
+                strokeWidth={1.7}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="mt-4 pr-7">
+              <h3
                 className={`
-                  w-full
-                  text-left
-                  px-5
-                  py-4
-                  rounded-xl
-                  border
-                  transition
-                  duration-200
+                  text-sm
+                  font-semibold
+                  transition-colors
+
                   ${
                     isSelected
-                      ? `
-                        border-[#C9A758]
-                        bg-[#C9A758]/10
-                        text-[#C9A758]
-                      `
-                      : `
-                        border-gray-200
-                        dark:border-white/10
-                        text-gray-700
-                        dark:text-gray-300
-                        hover:border-[#C9A758]/50
-                        hover:bg-gray-50
-                        dark:hover:bg-[#1A1A1A]
-                      `
+                      ? "text-[#C9A758]"
+                      : "text-gray-900 dark:text-white"
                   }
                 `}
               >
+                {amenity.name}
+              </h3>
 
-                <div
+              {amenity.description && (
+                <p
                   className="
-                    flex
-                    items-center
-                    justify-between
-                    gap-3
+                    mt-2
+                    text-xs
+                    leading-5
+                    text-gray-500
+                    dark:text-gray-400
                   "
                 >
+                  {amenity.description}
+                </p>
+              )}
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  )}
 
-                  <span
-                    className="
-                      font-medium
-                    "
-                  >
-                    {amenity.name}
-                  </span>
-
-
-                  <span
-                    className={`
-                      w-5
-                      h-5
-                      rounded-md
-                      border
-                      flex
-                      items-center
-                      justify-center
-                      text-xs
-                      font-bold
-                      ${
-                        isSelected
-                          ? `
-                            border-[#C9A758]
-                            bg-[#C9A758]
-                            text-black
-                          `
-                          : `
-                            border-gray-300
-                            dark:border-white/20
-                          `
-                      }
-                    `}
-                  >
-                    {isSelected ? "✓" : ""}
-                  </span>
-
-                </div>
-
-              </button>
-
-            );
-
-          })}
-
-        </div>
-
-      )}
-
-    </section> */}
+  {selectedAmenities.length > 0 && (
+    <div
+      className="
+        mt-6
+        rounded-2xl
+        border
+        border-[#C9A758]/20
+        bg-[#C9A758]/5
+        px-5
+        py-4
+      "
+    >
+      <p
+        className="
+          text-sm
+          text-gray-600
+          dark:text-gray-300
+        "
+      >
+        <span className="font-semibold text-[#C9A758]">
+          {selectedAmenities.length}
+        </span>{" "}
+        amenit
+        {selectedAmenities.length === 1
+          ? "y"
+          : "ies"}{" "}
+        selected for this property.
+      </p>
+    </div>
+  )}
+</section>
 
 
     {/* =====================================================

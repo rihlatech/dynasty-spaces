@@ -18,6 +18,16 @@ export default function ListingTable({
   onToggleFeatured,
 }) {
 
+  // Featured listings appear first
+  const sortedListings = [...listings].sort((a, b) => {
+
+    if (a.featured === b.featured) {
+      return 0;
+    }
+
+    return a.featured ? -1 : 1;
+  });
+
   return (
     <div
       className="
@@ -117,7 +127,7 @@ export default function ListingTable({
           ===================================================== */}
 
           {!loading &&
-            listings.map((listing) => {
+            sortedListings.map((listing) => {
 
               const cover =
                 listing.listing_media?.find(

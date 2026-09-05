@@ -1,6 +1,7 @@
 import { useEffect, useState , useRef} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import AmenityCard from "../../components/website/AmenityCard";
 
 import {
   ArrowLeft,
@@ -77,20 +78,25 @@ export default function ListingDetails() {
       setLoading(true);
 
       const { data, error } = await supabase
-
-        .from("listings")
-
-        .select(`
-          *,
-            listing_media (
-            media_url,
-            is_primary
-          )
-        `)
-
-        .eq("id", listingId)
-
-        .single();
+  .from("listings")
+  .select(`
+    *,
+    listing_media (
+      media_url,
+      is_primary
+    ),
+    listing_amenities (
+      amenity_id,
+      amenities (
+        id,
+        name,
+        description,
+        icon_key
+      )
+    )
+  `)
+  .eq("id", listingId)
+  .single();
 
 
       if (error) throw error;
@@ -158,22 +164,18 @@ export default function ListingDetails() {
 
 
       const { data, error } = await supabase
-
-        .from("listings")
-
-        .select(`
-          *,
-          listing_media (
-            media_url,
-            is_primary
-          )
-        `)
-
-        .eq("status", "published")
-
-        .neq("id", listingId)
-
-        .limit(6);
+  .from("listings")
+  .select(`
+    *,
+    listing_media (
+      media_url,
+      is_primary
+    )
+  `)
+  .neq("id", listingId)
+  .eq("status", "published")
+  .order("created_at", { ascending: false })
+  .limit(6);
 
 
       if (error) throw error;
@@ -252,97 +254,7 @@ if (loading) {
 
   return (
     <>
-   <Helmet>
-  <title>
-    {listing?.title
-      ? `${listing.title} | Dynasty Spaces`
-      : "Property Details | Dynasty Spaces"}
-  </title>
-
-  <meta
-    name="description"
-    content={
-      listing?.description
-        ? listing.description.slice(0, 160)
-        : "Explore this property with Dynasty Spaces."
-    }
-  />
-
-  <link
-    rel="canonical"
-    href={`https://dynastyspace.com/properties/${listingId}`}
-  />
-
-  <meta
-    property="og:title"
-    content={
-      listing?.title
-        ? `${listing.title} | Dynasty Spaces`
-        : "Property Details | Dynasty Spaces"
-    }
-  />
-
-  <meta
-    property="og:description"
-    content={
-      listing?.description
-        ? listing.description.slice(0, 160)
-        : "Explore this property with Dynasty Spaces."
-    }
-  />
-
-  <meta
-    property="og:url"
-    content={`https://dynastyspace.com/properties/${listingId}`}
-  />
-
-  <meta
-    property="og:type"
-    content="website"
-  />
-
-  {images.length > 0 && (
-    <meta
-      property="og:image"
-      content={images[0]}
-    />
-  )}
-
-  {listing && (
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "RealEstateListing",
-        name: listing.title,
-        description:
-          listing.description ||
-          `Explore ${listing.title}, a property available through Dynasty Spaces.`,
-        url: `https://dynastyspace.com/properties/${listingId}`,
-
-        image: images.length > 0 ? images : undefined,
-
-        offers: listing.price
-          ? {
-              "@type": "Offer",
-              price: listing.price,
-              priceCurrency: listing.currency || "KES",
-              url: `https://dynastyspace.com/properties/${listingId}`,
-            }
-          : undefined,
-
-        address: listing.location
-          ? {
-              "@type": "PostalAddress",
-              addressLocality: listing.location,
-              addressCountry: "KE",
-            }
-          : undefined,
-
-        numberOfBedrooms: listing.bedrooms || undefined,
-      })}
-    </script>
-  )}
-</Helmet>
+   
 
 
     <main
@@ -837,7 +749,107 @@ if (loading) {
 
   if (!listing) {
 
+   
+
     return (
+      <>
+
+      <Helmet>
+  {/* Page Title */}
+  <title>
+    {listing.title
+      ? `${listing.title} | Dynasty Spaces`
+      : "Property Details | Dynasty Spaces"}
+  </title>
+
+  {/* Meta Description */}
+  <meta
+    name="description"
+    content={
+      listing.description
+        ? listing.description.slice(0, 160)
+        : "Explore this property with Dynasty Spaces."
+    }
+  />
+
+  {/* Canonical URL */}
+  <link
+    rel="canonical"
+    href={`https://dynastyspace.com/properties/${listingId}`}
+  />
+
+  {/* Open Graph */}
+  <meta
+    property="og:title"
+    content={`${listing.title} | Dynasty Spaces`}
+  />
+
+  <meta
+    property="og:description"
+    content={
+      listing.description
+        ? listing.description.slice(0, 160)
+        : "Explore this property with Dynasty Spaces."
+    }
+  />
+
+  <meta
+    property="og:url"
+    content={`https://dynastyspace.com/properties/${listingId}`}
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  {/* Social Preview Image */}
+  {images.length > 0 && (
+    <meta
+      property="og:image"
+      content={images[0]}
+    />
+  )}
+
+  {/* Structured Data / JSON-LD */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+
+      name: listing.title,
+
+      description:
+        listing.description ||
+        `Explore ${listing.title}, a property available through Dynasty Spaces.`,
+
+      url: `https://dynastyspace.com/properties/${listingId}`,
+
+      image: images.length > 0 ? images : undefined,
+
+      offers: listing.price
+        ? {
+            "@type": "Offer",
+            price: listing.price,
+            priceCurrency: listing.currency || "KES",
+            url: `https://dynastyspace.com/properties/${listingId}`,
+          }
+        : undefined,
+
+      address: listing.location
+        ? {
+            "@type": "PostalAddress",
+            addressLocality: listing.location,
+            addressCountry: "KE",
+          }
+        : undefined,
+
+      numberOfBedrooms: listing.bedrooms || undefined,
+    })}
+  </script>
+</Helmet>
+
+      
 
       <div
         className="
@@ -896,7 +908,7 @@ if (loading) {
         </button>
 
       </div>
-
+    </>
     );
 
   }
@@ -1452,6 +1464,47 @@ if (loading) {
 
 
 </div>
+
+{/* About This Property */}
+<section className="mt-10">
+  <div className="max-w-4xl">
+    <h2 className="text-2xl font-semibold text-white">
+      About This Property
+    </h2>
+
+    <p className="mt-4 text-base leading-8 text-gray-400 whitespace-pre-line">
+      {listing.description}
+    </p>
+  </div>
+</section>
+
+{/* Property Features & Amenities */}
+{listing.listing_amenities?.length > 0 && (
+  <section className="mt-10">
+    <div className="mb-6">
+      <h2 className="text-2xl font-semibold text-white">
+        Property Features & Amenities
+      </h2>
+
+      <p className="mt-2 text-sm text-gray-400">
+        Enjoy the features and amenities available at this property.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {listing.listing_amenities
+        .filter((item) => item.amenities)
+        .map((item) => (
+          <AmenityCard
+            key={item.amenity_id}
+            name={item.amenities.name}
+            description={item.amenities.description}
+            iconKey={item.amenities.icon_key}
+          />
+        ))}
+    </div>
+  </section>
+)}
 
 
 {/* =========================================================
